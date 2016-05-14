@@ -14,78 +14,24 @@ sap.ui.jsview("shoppingcart.Category", {
 	*/ 
 	createContent : function(oController) {
 		
-		var sf = new sap.m.SearchField({
-            placeholder: "Search",
-            showRefreshButton: true,
-            liveChange: oController.PR_Search,
-            search: oController.PR_Search,
-            tooltip: "Search for objects..",
-        });
+		var oList = new sap.m.List({
+			id: "listId"
+		})
 		
-		
-//		var po_list = new sap.m.List({
-//			id: "listId",
-//			mode: sap.m.ListMode.SingleSelectMaster,
-//			select: function(evt) {
-//				oController.itemSelect(evt);
-//			}
-//		})
-		
-		  var po_list = new sap.m.List("listId", {
-             // inset: false,
-  			id: "listId",
-  			mode: sap.m.ListMode.SingleSelectMaster,
-  			select: function(evt) {
-  				oController.itemSelect(evt);
-  			}
-          });
-		
-		
-		 var V_List_itemtemplate = new sap.m.StandardListItem({
-			 title: "{products>model}",
-				description:"{products>model} \n {products>model}",
-				info :"{products>model}",
-//				icon:"{products>model}",
-//				infoState:{
-//					path: 'Status',
-//					formatter: 'sap.m.sample.StandardListItemInfo.Formatter.status'
-//				},
-				
+		oList.bindItems({
+			path : "products>/collection", 
+			template : new sap.m.StandardListItem({
+				title: "{products>category}",
+				type: sap.m.ListType.Navigation,
 				press:function(evt){
 					oController.categoryListItemPress(evt);
 				}
-         });
+			})
+		});
 		
-		 po_list.bindItems({
-             path: "products>/collection",
-             template: V_List_itemtemplate,
-         });
-		
-		
-//		oList.bindItems({
-//			path : "products>/collection", 
-//			template : new sap.m.StandardListItem({
-//				title: "{products>model}",
-//				description:"{products>model} \n {products>model}",
-//				info :"{products>model}",
-//				
-//				press:function(evt){
-//					oController.categoryListItemPress(evt);
-//				}
-//			})
-//		});
-		
-		
-		
-		
-		
-		
-//	alert(oList);
  		return new sap.m.Page({
-			title: "Model Name",
-			
-			content: [sf,po_list],
-			
+			title: "Category",
+			content: [oList]
 		});
 	}
 

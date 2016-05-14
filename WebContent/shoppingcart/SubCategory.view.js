@@ -35,12 +35,12 @@ sap.ui.jsview("shoppingcart.SubCategory", {
 			navButtonPress: function() {
 				oController.goBack();
 			},
-//			headerContent: new sap.m.Button({
-//				icon: "sap-icon://cart",
-//				press: function(evt) {
-//					sap.demo.cart.common.cartPress(evt,oController);
-//				}
-//			}),
+			headerContent: new sap.m.Button({
+				icon: "sap-icon://cart",
+				press: function(evt) {
+					sap.demo.cart.common.cartPress(evt,oController);
+				}
+			}),
 			content: [oList]
 		});
 	}

@@ -15,21 +15,16 @@ sap.ui.jsview("shoppingcart.Welcome", {
 	createContent : function(oController) {
 		
 		var oImage = new sap.m.Image({
-			src: "resources/logo.png",
+			src: "resources/welcome.jpg",
 			width: '500px'
 		});
 		
 		var oText = new sap.m.Text({
-			text: "SmartphoneBizApp"
+			text: "SAPUI5 Shopping Cart Demo"
 		}).addStyleClass('welcomeText');
 		
  		return new sap.m.Page({
 			title: "Welcome",
-			showNavButton : "{device>/isPhone}",
-			navButtonPress : function() {
-				oController.handleNavButtonPress();
-
-			},
 			content: [
 			          new sap.m.VBox({
 			        	  items: [oImage,oText],

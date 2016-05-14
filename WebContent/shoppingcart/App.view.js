@@ -16,14 +16,7 @@ sap.ui.jsview("shoppingcart.App", {
  		
 		this.setDisplayBlock(true);
 		
-		return new sap.m.SplitApp("splitApp",{
-			setMode :'HideMode'
-				//setMode1 :'PopoverMode'
-		});
-		
-		
-		
-		
+		return new sap.m.SplitApp("splitApp",{});
 	}
 
 });

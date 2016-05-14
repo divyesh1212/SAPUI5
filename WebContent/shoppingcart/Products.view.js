@@ -14,12 +14,6 @@ sap.ui.jsview("shoppingcart.Products", {
 	*/ 
 	createContent : function(oController) {
 		
-		jQuery.sap.require("sap.ui.core.IconPool");
-		var aNames = sap.ui.core.IconPool.getIconNames(); 
-		
-		
-
-		
 		var oTable = new sap.m.Table("productsTable",{
 			inset: true,
 			columns: [
@@ -27,7 +21,6 @@ sap.ui.jsview("shoppingcart.Products", {
 			         new sap.m.Column({
 			        	 hAlign: "Left",
 			        	 width: "100px",
-			        	 
 			        	 demandPopin: true,
 			        	 popinDisplay: "Block",
 			        	 minScreenWidth: sap.m.ScreenSize.Medium
@@ -47,15 +40,14 @@ sap.ui.jsview("shoppingcart.Products", {
 			        	 popinDisplay: "Block",
 			        	 minScreenWidth: sap.m.ScreenSize.Medium
 			         }),
-			         //Set Hidden Column
+			         //button
 			         new sap.m.Column({
 			        	 hAlign: "Left",
-			        	 width: "10px",
+			        	 width: "100px",
 			        	 demandPopin: true,
 			        	 popinDisplay: "Block",
 			        	 minScreenWidth: sap.m.ScreenSize.Medium
-			         }),
-
+			         }) 
 			          
 			]
 		});
@@ -63,75 +55,38 @@ sap.ui.jsview("shoppingcart.Products", {
 		var oTemplate = new sap.m.ColumnListItem({
 			type: sap.m.ListType.Active,
 			cells: [
-//			        new sap.m.Image({
-//			        	src: "resources/sapui5.jpg",
-//			        	//src :'sURI/{products>iConClass}',
-//			        	height: "100px"
-//			        }),
-			        
-			        new sap.ui.core.Icon({  
-		                src : sap.ui.core.IconPool.getIconURI(aNames[10] ),  
-		                size : "50px",  
-		                color : "#333333",  
-		                activeColor : "white",  
-		                activeBackgroundColor : "#333333",  
-		                hoverColor : "#eeeeee",  
-		                hoverBackgroundColor : "#666666",  
-		                width : "60px",  
-		              visible :false,
-		            }).addStyleClass( "fontIcon" ) ,
+			        new sap.m.Image({
+			        	src: "{products>image}",
+			        	height: "100px"
+			        }),
 			        
 			        new sap.m.Text({
-			        	text: "Title :{products>description} ",
-			        	
-			        	//visible :false,
+			        	text: "{products>name} \n {products>title}"
 			        }),
 			        
-			        new sap.ui.core.Icon({  
-		                src : sap.ui.core.IconPool.getIconURI( aNames[Math.floor((Math.random() * 10) + 1)] ),  
-		                size : "50px",  
-		                color : "#333333",  
-		                activeColor : "white",  
-		                activeBackgroundColor : "#333333",  
-		                hoverColor : "#eeeeee",  
-		                hoverBackgroundColor : "#666666",  
-		                width : "60px",  
-		                visible :false,
-		            }),
-		            new sap.m.Text({
-			        	text: "{products>App}",
-			        	visible :false,
+			        new sap.m.Text({
+			        	text: "{products>price} INR"
 			        }),
 			        
+			        new sap.m.Button({
+			        	text: "Add to Cart",
+			        	press: function(e) {
+			        		sap.demo.cart.common.addToCart(e,this);
+			        	}
+			        })
 			]
 		});
 		
-			
-		oTable.bindAggregation("items","products>App",oTemplate);
-		
 		oTemplate.attachPress(function(evt) {
 			oController.productPress(evt);
-					
 		})
 		
-				
+		oTable.bindAggregation("items","products>product",oTemplate);
+		
+		
  		return new sap.m.Page({
-			title: "App Name",
-			content: [oTable],
-			showNavButton: true,
-			navButtonPress: function() {
-				oController.navigation();
-				//navigation;
-//				alert(1);
-//				this.router.navTo("Products");
-//				window.history.go(-1);
-			},
-			footer: new sap.m.Bar({
-				contentLeft: [
-				              new sap.m.Text({text: "SmartPhoneBizApp",})
-				]
-			}),
-			
+			title: "Collection",
+			content: [oTable]
 		});
 	}
 
